@@ -1,0 +1,28 @@
+{
+  "name": "resources-monitor-websocket",
+  "version": "1.0.0",
+  "description": "A pet project to try out websockets on nodejs. The goal is to broadcast the memory usage of a machine. The process should only collect resources data and broadcast it when there's  at least one client connected",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lalvarezguillen/resources-monitor-websocket.git"
+  },
+  "keywords": [
+    "nodejs",
+    "websockets"
+  ],
+  "author": "lalvarezguillen",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/lalvarezguillen/resources-monitor-websocket/issues"
+  },
+  "homepage": "https://github.com/lalvarezguillen/resources-monitor-websocket#readme",
+  "dependencies": {
+    "express": "^4.16.2",
+    "express-ws": "^3.0.0",
+    "influx": "^5.0.0-alpha.4"
+  }
+}
