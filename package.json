@@ -24,5 +24,9 @@
     "express": "^4.16.2",
     "express-ws": "^3.0.0",
     "influx": "^5.0.0-alpha.4"
+  },
+  "devDependencies": {
+    "tslint": "^5.7.0",
+    "typescript": "^2.5.3"
   }
 }
