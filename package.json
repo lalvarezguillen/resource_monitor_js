@@ -26,6 +26,7 @@
     "influx": "^5.0.0-alpha.4"
   },
   "devDependencies": {
+    "@types/node": "^8.0.46",
     "tslint": "^5.7.0",
     "typescript": "^2.5.3"
   }

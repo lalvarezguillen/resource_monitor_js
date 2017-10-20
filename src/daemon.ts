@@ -3,7 +3,29 @@ const WebSocket = require('ws');
 const wsServer = new WebSocket.Server({port: 8080});
 
 
-function getMetrics () {
+function run () {
+  getMetrics().then(metrics => broadcastMetrics(metrics, wsServer))
+  setTimeout(run, 2000);
+}
+
+interface CPUTimes {
+  user: number,
+  nice: number,
+  sys: number,
+  idle: number
+}
+
+interface CPUInfo {
+  times: CPUTimes
+}
+
+interface Metrics {
+  cpuUsage: number,
+  freeMem: number,
+  totalMem: number
+}
+
+function getMetrics (): Promise<Metrics> {
   return new Promise((resolve, reject) => {
     const metrics = {
       cpuUsage: calculateCPUUsage(mergeCoresMetrics(os.cpus()).times),
@@ -22,28 +44,13 @@ function storeMetrics (metrics: Metrics) {
   // Store in Influx
 }
 
-interface Metrics {
-  cpuUsage: number,
-  freeMem: number,
-  totalMem: number
-}
-
 function broadcastMetrics (metrics: Metrics, wss) {
+  console.log(metrics);
   for (let client of wss.clients) {
     if (client.readyState === WebSocket.OPEN) {
       client.send(JSON.stringify(metrics));
     }
   }
-}
-
-interface CPUTimes {
-  user: number,
-  nice: number,
-  sys: number,
-  idle: number
-}
-interface CPUInfo {
-  times: CPUTimes
 }
 
 function mergeCoresMetrics (coresMetrics: Array<CPUInfo>) {
@@ -70,3 +77,4 @@ exports.storeMetrics = storeMetrics;
 exports.getMetrics = getMetrics;
 exports.calculateCPUUsage = calculateCPUUsage;
 exports.mergeCoresMetrics = mergeCoresMetrics;
+exports.run = run;
